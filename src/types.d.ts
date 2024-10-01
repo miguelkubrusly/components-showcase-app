@@ -1,51 +1,19 @@
 
 declare global {
-  type PrimaryPurpose = {
-    primary?: boolean,
-    secondary?: never,
-    success?: never,
-    warning?: never,
-    danger?: never,
-  }
-  type SecondaryPurpose = {
-    primary?: never,
-    secondary?: boolean,
-    success?: never,
-    warning?: never,
-    danger?: never,
-  }
-  type SuccessPurpose = {
-    primary?: never,
-    secondary?: never,
-    success?: boolean,
-    warning?: never,
-    danger?: never,
-  }
-  type WarningPurpose = {
-    primary?: never,
-    secondary?: never,
-    success?: never,
-    warning?: boolean,
-    danger?: never,
-  }
-  type DangerPurpose = {
-    primary?: never,
-    secondary?: never,
-    success?: never,
-    warning?: never,
-    danger?: boolean,
-  }
 
+  type ExcludeFromObject<T extends any[], U> = {
+    [K in keyof T]: T[K] extends U ? never : T[K]
+  }[number]
 
-  type ButtonProps = (PrimaryPurpose | SecondaryPurpose | SuccessPurpose | WarningPurpose | DangerPurpose) & {
-    outline?: boolean,
-    rounded?: boolean,
-    children?: React.ReactNode,
-    [key: any]: any
-  }
+  type Exclusive<T extends PropertyKey[], U = any> = T[number] extends infer E ? E extends string ? Record<E, U> & { [k in ExcludeFromObject<T, E>]?: never } : never : never
 
-
-
+  type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+    Partial<{
+      outline: boolean;
+      rounded: boolean;
+      children: React.ReactNode;
+      className: string
+    }> & Exclusive<["primary", "secondary", "success", "warning", "danger"], boolean>
 }
 
 export { }
