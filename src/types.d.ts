@@ -41,7 +41,7 @@ declare global {
     outline?: boolean,
     rounded?: boolean,
     children?: React.ReactNode,
-    [key: React.EventHandler]: any
+    [key: any]: any
   }
 
 
