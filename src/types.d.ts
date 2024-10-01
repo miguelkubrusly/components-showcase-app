@@ -40,8 +40,10 @@ declare global {
   type ButtonProps = (PrimaryPurpose | SecondaryPurpose | SuccessPurpose | WarningPurpose | DangerPurpose) & {
     outline?: boolean,
     rounded?: boolean,
-    children: React.ReactNode,
+    children?: React.ReactNode,
+    [key: React.EventHandler]: any
   }
+
 
 
 }

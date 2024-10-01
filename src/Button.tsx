@@ -10,6 +10,7 @@ function Button({
   outline,
   rounded,
   children,
+  ...rest
 }: ButtonProps) {
   const classes: string = twMerge(
     className("flex text-center px-3 py-1.5 border m-2", {
@@ -30,7 +31,9 @@ function Button({
 
   return (
     <div>
-      <button className={classes}>{children}</button>
+      <button {...rest} className={classes}>
+        {children}
+      </button>
     </div>
   );
 }
