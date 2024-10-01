@@ -1,3 +1,4 @@
+
 declare global {
   type PrimaryPurpose = {
     primary?: boolean,
@@ -39,7 +40,7 @@ declare global {
   type ButtonProps = (PrimaryPurpose | SecondaryPurpose | SuccessPurpose | WarningPurpose | DangerPurpose) & {
     outline?: boolean,
     rounded?: boolean,
-    children?: string,
+    children: React.ReactNode,
   }
 
 
