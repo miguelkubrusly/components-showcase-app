@@ -1,3 +1,4 @@
+import "./index.css";
 import ReactDOM, { Root } from "react-dom/client";
 import App from "./App";
 import { StrictMode } from "react";
