@@ -39,7 +39,7 @@ declare global {
   type ButtonProps = (PrimaryPurpose | SecondaryPurpose | SuccessPurpose | WarningPurpose | DangerPurpose) & {
     outline?: boolean,
     rounded?: boolean,
-    children?: boolean,
+    children?: string,
   }
 
 
