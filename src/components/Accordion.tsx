@@ -1,35 +1,20 @@
 import { useState } from "react";
-import Button from "./Button";
 
-function Accordion({ items }: any) {
-  const [expandedIndex, setExpandedIndex] = useState(0);
+function Accordion({ items }: AccordionItemsProp) {
+  const [expandedIndex, setExpandedIndex] = useState(-1);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const parsedIndex = parseInt((event.target as HTMLDivElement).id);
-    setExpandedIndex(parsedIndex);
-  };
+  const renderedItems = items.map((item: any, index: number) => {
+    const isExpanded = index === expandedIndex;
 
-  const renderedAccordions = items.map((item: any, index: number) => {
-    if (index === expandedIndex) {
-      return (
-        <div>
-          <Button>
-            <h3>{item.label}</h3>
-          </Button>
-          <p>{item.content}</p>
-        </div>
-      );
-    } else {
-      return (
-        <div id={"accordion" + String(index)}>
-          <Button onClick={handleClick}>
-            <h3>{item.label}</h3>
-          </Button>
-        </div>
-      );
-    }
+    return (
+      <div key={item.id}>
+        <div onClick={() => setExpandedIndex(index)}>{item.label}</div>
+        {isExpanded && <div>{item.content}</div>}
+      </div>
+    );
   });
-  return <div>{renderedAccordions}</div>;
+
+  return <div>{renderedItems}</div>;
 }
 
 export default Accordion;
