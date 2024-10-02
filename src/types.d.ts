@@ -13,7 +13,7 @@ declare global {
       rounded: boolean;
       children: React.ReactNode;
       className: string
-    }> & Exclusive<["primary", "secondary", "success", "warning", "danger"], boolean>
+    }> & Partial<Exclusive<["primary", "secondary", "success", "warning", "danger"], boolean>>
 }
 
 export { }
