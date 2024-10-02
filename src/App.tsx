@@ -7,19 +7,19 @@ function App() {
         items={[
           {
             id: Math.floor(Math.random() * 10 ^ 9),
-            label: "This is a Accordion Label",
+            label: "This is an Accordion Label",
             content:
               "And this is a very repetitive content. And this is a very repetitive content. And this is a very repetitive content. And this is a very repetitive content. ",
           },
           {
             id: Math.floor(Math.random() * 10 ^ 9),
-            label: "This is a Accordion Label",
+            label: "This is an Accordion Label",
             content:
               "And this is a very repetitive content. And this is a very repetitive content. And this is a very repetitive content. And this is a very repetitive content. ",
           },
           {
             id: Math.floor(Math.random() * 10 ^ 9),
-            label: "This is a Accordion Label",
+            label: "This is an Accordion Label",
             content:
               "And this is a very repetitive content. And this is a very repetitive content. And this is a very repetitive content. And this is a very repetitive content. ",
           },
