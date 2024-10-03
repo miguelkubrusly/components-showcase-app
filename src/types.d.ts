@@ -11,13 +11,20 @@ declare global {
     [K in keyof O]: T
   }
 
+  interface Option {
+    value: string | number;
+    label: string
+  }
+
   interface AccordionItem {
     id: number;
     label: string;
     content: string
   }
 
-  type AccordionItemsProp = MapObject<AccordionItem, items>
+  type OptionsProp = MapObject<Option, options[number]>
+
+  type AccordionItemsProp = MapObject<AccordionItem, items[number]>
 
   type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     Partial<{
