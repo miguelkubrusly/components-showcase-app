@@ -12,26 +12,9 @@ declare global {
     [K in keyof O]: T
   }
 
-  interface Option {
-    value: string | number;
-    label: string
-  }
 
-  interface AccordionItem {
-    id: number;
-    label: string;
-    content: string
-  }
 
-  type OptionsProp = MapObject<Option, options[number]>
 
-  interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-    options: OptionsProp;
-    value: string | null;
-    onChange: (newChoice: string) => void
-  }
-
-  type AccordionItemsProp = MapObject<AccordionItem, items[number]>
 
   type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     Partial<{
@@ -40,6 +23,34 @@ declare global {
       children: React.ReactNode;
       className: string
     }> & Partial<Exclusive<["primary", "secondary", "success", "warning", "danger"], boolean>>
+
+
+
+
+
+  interface AccordionItem {
+    id: number;
+    label: string;
+    content: string
+  }
+  type AccordionItemsProp = MapObject<AccordionItem, items[number]>
+
+
+
+
+
+  interface Option {
+    value: string | number;
+    label: string
+  }
+  type OptionsProp = MapObject<Option, options[number]>
+  interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+    options: OptionsProp;
+    value: string | null;
+    onChange: (newChoice: string) => void
+  }
+
+
 }
 
 export { }
