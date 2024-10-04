@@ -7,14 +7,14 @@ function Accordion({ items }: AccordionItemsProp) {
   const handleClick = (newIndex: number) => {
     setExpandedIndex((expandedIndex) => {
       if (newIndex === expandedIndex) {
-        return -1
+        return -1;
       } else {
-        return newIndex
+        return newIndex;
       }
-    })
+    });
   };
 
-  const renderedItems = items.map((item: any, index: number) => {
+  const renderedItems = items.map((item: AccordionItem, index: number) => {
     const isExpanded = index === expandedIndex;
     const icon: JSX.Element = (
       <span className="text-xl">
