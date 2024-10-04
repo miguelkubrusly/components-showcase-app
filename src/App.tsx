@@ -2,10 +2,10 @@ import { useState } from "react";
 import Dropdown from "./components/Dropdown";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [choice, setChoice] = useState<string | null>(null);
 
-  const handleClick = () => {
-    setIsOpen(!isOpen);
+  const handleChoice = (newChoice: string) => {
+    setChoice(newChoice);
   };
 
   const options = [
@@ -16,11 +16,7 @@ function App() {
 
   return (
     <div>
-      <Dropdown
-        options={options}
-        isOpen={isOpen}
-        toggleDropdown={handleClick}
-      />
+      <Dropdown options={options} value={choice} onChange={handleChoice} />
     </div>
   );
 }

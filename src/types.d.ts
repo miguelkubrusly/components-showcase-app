@@ -27,8 +27,8 @@ declare global {
 
   interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     options: OptionsProp;
-    isOpen: boolean;
-    toggleDropdown: () => void
+    value: string | null;
+    onChange: (newChoice: string) => void
   }
 
   type AccordionItemsProp = MapObject<AccordionItem, items[number]>

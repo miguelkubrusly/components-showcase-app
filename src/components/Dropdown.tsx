@@ -1,30 +1,25 @@
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 
-function Dropdown({ options, isOpen, toggleDropdown, ...rest }: DropdownProps) {
-  const [choice, setChoice] = useState<string | null>(null);
+function Dropdown({ options, value, onChange, ...rest }: DropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = (click: MouseEvent<HTMLDivElement>) => {
-    const target = click.currentTarget;
-    setChoice(target.getAttribute("data-value"));
-    toggleDropdown();
+  const handleNewValue = (newValue: string) => {
+    onChange(newValue);
+    setIsOpen(false);
   };
 
   const renderedOptions = options.map((option: Option) => {
     return (
-      <div key={option.value} data-value={option.value} onClick={handleClick}>
+      <div key={option.value} onClick={() => handleNewValue(option.label)}>
         {option.label}
       </div>
     );
   });
 
-  const currentChoice = choice
-    ? options.find((option: Option) => option.value === choice).label
-    : "Select...";
-
   return (
     <div>
-      <div onClick={toggleDropdown} {...rest}>
-        {currentChoice}
+      <div onClick={() => setIsOpen(!isOpen)} {...rest}>
+        {value ? value : "Select..."}
       </div>
       {isOpen && renderedOptions}
     </div>
