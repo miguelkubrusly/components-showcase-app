@@ -1,21 +1,6 @@
 
 declare global {
-
-
-  type ExcludeFromObject<T extends any[], U> = {
-    [K in keyof T]: T[K] extends U ? never : T[K]
-  }[number]
-
-  type Exclusive<T extends PropertyKey[], U = any> = T[number] extends infer E ? E extends string ? Record<E, U> & { [k in ExcludeFromObject<T, E>]?: never } : never : never
-
-  type MapObject<T, O extends object> = {
-    [K in keyof O]: T
-  }
-
-
-
-
-
+  //Button
   type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     Partial<{
       outline: boolean;
@@ -24,10 +9,7 @@ declare global {
       className: string
     }> & Partial<Exclusive<["primary", "secondary", "success", "warning", "danger"], boolean>>
 
-
-
-
-
+  //Accordion
   interface AccordionItem {
     id: number;
     label: string;
@@ -35,10 +17,7 @@ declare global {
   }
   type AccordionItemsProp = MapObject<AccordionItem, items[number]>
 
-
-
-
-
+  //Dropdown
   interface Option {
     value: string | number;
     label: string
@@ -50,6 +29,13 @@ declare global {
     onChange: (newChoice: string) => void
   }
 
+  //Panel
+
+  type PanelProps = Partial<{
+    children: React.ReactNode;
+    className: string;
+    [key: string]: React.ComponentProps;
+  }>;
 
 }
 
