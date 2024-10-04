@@ -14,27 +14,29 @@ function Accordion({ items }: AccordionItemsProp) {
     });
   };
 
-  const renderedItems = items.map((item: AccordionItem, index: number) => {
-    const isExpanded = index === expandedIndex;
-    const icon: JSX.Element = (
-      <span className="text-xl">
-        {isExpanded ? <GoChevronDown /> : <GoChevronLeft />}
-      </span>
-    );
+  const renderedItems: JSX.Element = items.map(
+    (item: AccordionItem, index: number) => {
+      const isExpanded = index === expandedIndex;
+      const icon: JSX.Element = (
+        <span className="text-xl">
+          {isExpanded ? <GoChevronDown /> : <GoChevronLeft />}
+        </span>
+      );
 
-    return (
-      <div key={item.id} className="w-1/5">
-        <div
-          className="flex p-3 bg-gray-50 border-b items-center cursor-pointer justify-between"
-          onClick={() => handleClick(index)}
-        >
-          {item.label}
-          {icon}
+      return (
+        <div key={item.id} className="w-1/5">
+          <div
+            className="flex p-3 bg-gray-50 border-b items-center cursor-pointer justify-between"
+            onClick={() => handleClick(index)}
+          >
+            {item.label}
+            {icon}
+          </div>
+          {isExpanded && <div className="border-b p-5">{item.content}</div>}
         </div>
-        {isExpanded && <div className="border-b p-5">{item.content}</div>}
-      </div>
-    );
-  });
+      );
+    }
+  );
 
   return <div>{renderedItems}</div>;
 }
