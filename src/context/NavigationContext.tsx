@@ -17,7 +17,7 @@ function NavigationProvider({ children }: { children: React.ReactNode }) {
   );
 
   const handleNavigation = (event: MouseEvent, path: string) => {
-    event.preventDefault();
+    // event.preventDefault();
     window.history.pushState({}, "", `/${path}`);
   };
 

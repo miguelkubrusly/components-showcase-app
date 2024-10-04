@@ -16,7 +16,9 @@ function Navigation() {
 
   return (
     <div>
-      <Link onClick={handleClick}>Dropdown</Link>
+      <Link onClick={(event: any) => handleClick(event.target.children)}>
+        Dropdown
+      </Link>
     </div>
   );
 }
