@@ -1,3 +1,4 @@
+
 declare global {
 
 
@@ -23,6 +24,12 @@ declare global {
   }
 
   type OptionsProp = MapObject<Option, options[number]>
+
+  interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+    options: OptionsProp;
+    isOpen: boolean;
+    toggleDropdown: () => void
+  }
 
   type AccordionItemsProp = MapObject<AccordionItem, items[number]>
 

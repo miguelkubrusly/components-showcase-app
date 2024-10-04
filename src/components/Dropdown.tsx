@@ -1,25 +1,34 @@
-import { ChangeEvent, useState } from "react"
+import { MouseEvent, useState } from "react";
 
-function Dropdown({ options }: OptionsProp) {
-  const setValue = useState<string | undefined>(undefined)[1]
+function Dropdown({ options, isOpen, toggleDropdown, ...rest }: DropdownProps) {
+  const [choice, setChoice] = useState<string | null>(null);
+
+  const handleClick = (click: MouseEvent<HTMLDivElement>) => {
+    const target = click.currentTarget;
+    setChoice(target.getAttribute("data-value"));
+    toggleDropdown();
+  };
 
   const renderedOptions = options.map((option: Option) => {
     return (
-      <option value={option.value}>{option.label}</option>
-    )
-  })
+      <div key={option.value} data-value={option.value} onClick={handleClick}>
+        {option.label}
+      </div>
+    );
+  });
 
-  const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setValue(event.target.value)
-  }
+  const currentChoice = choice
+    ? options.find((option: Option) => option.value === choice).label
+    : "Select...";
 
   return (
     <div>
-      <select onChange={handleChange}>
-        {renderedOptions}
-      </select>
+      <div onClick={toggleDropdown} {...rest}>
+        {currentChoice}
+      </div>
+      {isOpen && renderedOptions}
     </div>
-  )
+  );
 }
 
-export default Dropdown
+export default Dropdown;
