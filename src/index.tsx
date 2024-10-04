@@ -1,6 +1,6 @@
 import "./index.css";
 import ReactDOM, { Root } from "react-dom/client";
-import App from "./App";
+import App from "./pages/DropdownPage";
 import { StrictMode } from "react";
 
 const el: HTMLElement = document.getElementById("root")!;

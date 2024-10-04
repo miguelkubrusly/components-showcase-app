@@ -34,7 +34,7 @@ function Dropdown({ options, value, onChange, ...rest }: DropdownProps) {
       <div
         key={option.value}
         onClick={() => handleNewValue(option.label)}
-        className="hover:bg-sky-100 rounded cursor-pointer p-1 text-left border-b last:border-b-0 font-medium text-sm"
+        className="hover:bg-sky-100 rounded cursor-pointer p-2 text-left border-b last:border-b-0 font-medium text-sm"
       >
         {option.label}
       </div>
