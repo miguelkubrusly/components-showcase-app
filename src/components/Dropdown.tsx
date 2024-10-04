@@ -1,3 +1,4 @@
+import { GoChevronDown, GoChevronLeft } from "react-icons/go";
 import { useState } from "react";
 
 function Dropdown({ options, value, onChange, ...rest }: DropdownProps) {
@@ -10,18 +11,33 @@ function Dropdown({ options, value, onChange, ...rest }: DropdownProps) {
 
   const renderedOptions = options.map((option: Option) => {
     return (
-      <div key={option.value} onClick={() => handleNewValue(option.label)}>
+      <div
+        key={option.value}
+        onClick={() => handleNewValue(option.label)}
+        className="hover:bg-sky-100 rounded cursor-pointer p-1 text-left"
+      >
         {option.label}
       </div>
     );
   });
 
   return (
-    <div>
-      <div onClick={() => setIsOpen(!isOpen)} {...rest}>
-        {value ? value : "Select..."}
+    <div className="w-48 relative">
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex justify-between items-center cursor-pointer border rounded p-3 shadow bg-white w-full"
+        {...rest}
+      >
+        {value || "Select..."}
+        <span className="text-lg">
+          {isOpen ? <GoChevronDown /> : <GoChevronLeft />}
+        </span>
       </div>
-      {isOpen && renderedOptions}
+      {isOpen && (
+        <div className="absolute top-full border rounded p-3 shadow bg-white w-full">
+          {renderedOptions}
+        </div>
+      )}
     </div>
   );
 }

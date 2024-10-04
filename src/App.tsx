@@ -9,9 +9,9 @@ function App() {
   };
 
   const options = [
-    { value: "firstLabel", label: "This is some label" },
-    { value: "otherLabel", label: "This is some other label" },
-    { value: "finalLabel", label: "Finally, this is the final label" },
+    { value: "firstLabel", label: "This is a label" },
+    { value: "otherLabel", label: "Yeah! Another label" },
+    { value: "finalLabel", label: "Finally, a final label" },
   ];
 
   return (
