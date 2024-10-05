@@ -1,19 +1,17 @@
 import { useContext } from "react";
-import NavigationContext from "../context/NavigationContext";
-import Button from "./Button";
+import NavigationContext from "../context/navigation";
 
-function Link({ children, path }: any) {
+function Link({ children, to }: any) {
   const { navigate } = useContext(NavigationContext);
 
-  const handleClick = () => {
-    navigate(path);
+  const handleClick = (event: any) => {
+    event.preventDefault();
+    navigate(to);
   };
 
   return (
     <div>
-      <Button onClick={handleClick} outline>
-        {children}
-      </Button>
+      <a onClick={handleClick}>{children}</a>
     </div>
   );
 }

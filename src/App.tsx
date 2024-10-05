@@ -1,33 +1,26 @@
-import { useContext, useState, useEffect } from "react";
-import NavigationContext from "./context/NavigationContext";
+import { useContext } from "react";
+import NavigationContext from "./context/navigation";
 import ButtonPage from "./pages/ButtonPage";
 import DropdownPage from "./pages/DropdownPage";
 import AccordionPage from "./pages/AccordionPage";
-import Navigation from "./components/Navigation";
+import Link from "./components/Link";
+import Router from "./components/Router";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState(null);
-
-  const { currentPath }: any = useContext(NavigationContext);
-
-  const loadPage = (page: any) => setCurrentPage(page);
-
-  useEffect(() => {
-    const pages: any = {
-      "/button": <ButtonPage />,
-      "/accordion": <AccordionPage />,
-      "/dropdown": <DropdownPage />,
-    };
-
-    loadPage(pages[currentPath]);
-  }, [currentPath]);
+  // const { currentPath }: any = useContext(NavigationContext);
 
   return (
     <div>
+      <Link to={"./accordion"}>Go to accordion</Link>
+      <Link to={"./dropdown"}>Go to dropdown</Link>
       <div>
-        <Navigation />
+        <Router path={"./accordion"}>
+          <AccordionPage />
+        </Router>
       </div>
-      <div>{currentPage}</div>
+      <Router path={"./dropdown"}>
+        <DropdownPage />
+      </Router>
     </div>
   );
 }

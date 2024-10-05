@@ -11,7 +11,7 @@ function NavigationProvider({ children }: { children: React.ReactNode }) {
     };
     window.addEventListener("popstate", handler, true);
     return window.removeEventListener("popstate", handler);
-  }, []);
+  }, [currentPath]);
 
   const navigate = (to: string) => {
     window.history.pushState({}, "", to);
