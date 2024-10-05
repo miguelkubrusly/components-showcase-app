@@ -1,33 +1,26 @@
-import { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const NavigationContext = createContext<any>(null);
 
 function NavigationProvider({ children }: { children: React.ReactNode }) {
-  const [currentPath, setCurrentPath] = useState<string>("/");
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
-  window.addEventListener(
-    "popstate",
-    (event) => {
-      // event.preventDefault();
-      const component = event.target as HTMLAnchorElement;
-      const componentName = component.children[0].textContent;
-      setCurrentPath(componentName!.toLowerCase);
-    },
-    true
-  );
+  useEffect(() => {
+    const handler = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener("popstate", handler, true);
+    return window.removeEventListener("popstate", handler);
+  }, []);
 
-  const handleNavigation = (event: MouseEvent, path: string) => {
-    // event.preventDefault();
-    window.history.pushState({}, "", `/${path}`);
-  };
-
-  const value = {
-    handleNavigation,
-    currentPath,
+  const navigate = (to: string) => {
+    window.history.pushState({}, "", to);
+    setCurrentPath(to);
   };
 
   return (
-    <NavigationContext.Provider value={value}>
+    <NavigationContext.Provider value={{ navigate, currentPath }}>
+      {currentPath}
       {children}
     </NavigationContext.Provider>
   );

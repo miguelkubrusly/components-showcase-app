@@ -1,11 +1,5 @@
-function Link({ children, onClick }: any) {
-  return (
-    <div key={Math.floor(Math.random() * 10 ** 5)}>
-      <a onClick={onClick} href={`./${children.toLowerCase()}`}>
-        {children}
-      </a>
-    </div>
-  );
+function Link() {
+  return <div></div>;
 }
 
 export default Link;
