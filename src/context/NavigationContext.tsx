@@ -20,7 +20,6 @@ function NavigationProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <NavigationContext.Provider value={{ navigate, currentPath }}>
-      {currentPath}
       {children}
     </NavigationContext.Provider>
   );

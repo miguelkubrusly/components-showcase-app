@@ -3,6 +3,7 @@ import NavigationContext from "./context/NavigationContext";
 import ButtonPage from "./pages/ButtonPage";
 import DropdownPage from "./pages/DropdownPage";
 import AccordionPage from "./pages/AccordionPage";
+import Navigation from "./components/Navigation";
 
 function App() {
   const [currentPage, setCurrentPage] = useState(null);
@@ -23,7 +24,9 @@ function App() {
 
   return (
     <div>
-      <div>Navigation</div>
+      <div>
+        <Navigation />
+      </div>
       <div>{currentPage}</div>
     </div>
   );
