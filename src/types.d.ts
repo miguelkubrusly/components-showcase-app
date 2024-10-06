@@ -35,7 +35,7 @@ declare global {
   type PanelProps = Partial<{
     children: React.ReactNode;
     className: string;
-    [key: string]: React.ComponentProps;
+    [key: string]: React.ComponentProps<any>;
   }>;
 
   //Navigation
@@ -45,9 +45,9 @@ declare global {
     navigate: (to: string) => void
     currentPath: string
   }
-  type RouterProps = { path: string, children: React.ReactNode }
+  type RouterProps = { path: string, children: JSX.Element }
 
-  type LinkProps = { children: React.ReacNode, to: string }
+  type LinkProps = { children: React.ReactNode, to: string }
 
 
 }
