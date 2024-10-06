@@ -5,13 +5,18 @@ function Link({ children, to }: LinkProps) {
   const navigate = useContext(NavigationContext)?.navigate;
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (event.metaKey || event.ctrlKey) {
+      return;
+    }
     event.preventDefault();
     navigate!(to);
   };
 
   return (
     <div>
-      <a onClick={handleClick}>{children}</a>
+      <a href={to} onClick={handleClick}>
+        {children}
+      </a>
     </div>
   );
 }
