@@ -10,7 +10,7 @@ function NavigationProvider({ children }: { children: React.ReactNode }) {
       setCurrentPath(window.location.pathname);
     };
     window.addEventListener("popstate", handler, true);
-    return window.removeEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
   }, [currentPath]);
 
   const navigate = (to: string) => {
