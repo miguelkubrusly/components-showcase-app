@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import NavigationContext from "../context/navigation";
 
-function Link({ children, to }: any) {
-  const { navigate } = useContext(NavigationContext);
+function Link({ children, to }: LinkProps) {
+  const navigate = useContext(NavigationContext)?.navigate;
 
-  const handleClick = (event: any) => {
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
-    navigate(to);
+    navigate!(to);
   };
 
   return (

@@ -1,3 +1,4 @@
+import React from "react";
 
 declare global {
   //Button
@@ -36,6 +37,18 @@ declare global {
     className: string;
     [key: string]: React.ComponentProps;
   }>;
+
+  //Navigation
+  type NavigationProviderProps = { children: React.ReactNode }
+
+  type NavigationContextValues = {
+    navigate: (to: string) => void
+    currentPath: string
+  }
+  type RouterProps = { path: string, children: React.ReactNode }
+
+  type LinkProps = { children: React.ReacNode, to: string }
+
 
 }
 

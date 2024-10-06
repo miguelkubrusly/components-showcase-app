@@ -1,9 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
 
-const NavigationContext = createContext<any>(null);
+const NavigationContext = createContext<NavigationContextValues | undefined>(
+  undefined
+);
 
-function NavigationProvider({ children }: { children: React.ReactNode }) {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+function NavigationProvider({ children }: NavigationProviderProps) {
+  const [currentPath, setCurrentPath] = useState<string>(
+    window.location.pathname
+  );
 
   useEffect(() => {
     const handler = () => {
@@ -13,7 +17,7 @@ function NavigationProvider({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("popstate", handler);
   }, [currentPath]);
 
-  const navigate = (to: string) => {
+  const navigate = (to: string): void => {
     window.history.pushState({}, "", to);
     setCurrentPath(to);
   };
