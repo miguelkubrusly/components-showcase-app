@@ -6,14 +6,14 @@ import Router from "./components/Router";
 function App() {
   return (
     <div>
-      <Link to={"./accordion"}>Go to accordion</Link>
-      <Link to={"./dropdown"}>Go to dropdown</Link>
+      <Link to={"/accordion"}>Go to accordion</Link>
+      <Link to={"/dropdown"}>Go to dropdown</Link>
       <div>
-        <Router path={"./accordion"}>
+        <Router path={"/accordion"}>
           <AccordionPage />
         </Router>
       </div>
-      <Router path={"./dropdown"}>
+      <Router path={"/dropdown"}>
         <DropdownPage />
       </Router>
     </div>
