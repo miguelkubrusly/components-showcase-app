@@ -1,18 +1,19 @@
 function Table({ data }: TableProp) {
   //specific for fruits
-  const renderedColors = data.map((item) => {
-    return `p-3 m-2 ${item.color}`;
-  });
+  const renderColor = (color: string) => (
+    <div className={`w-8 h-8 ${color} mx-auto`}></div>
+  );
 
-  //generalization
-  const renderedData = data.map((item: TableItem, index) => {
+  //generalization for values
+  const renderedData = data.map((item: TableItem) => {
     const renderedItem = Object.entries(item).map(([key, value]) => {
+      //specific for fruit
       return key === "color" ? (
-        <div
-          className={`w-8 h-8 ${renderedColors[index]} mx-auto`}
-          key={value}
-        ></div>
+        <td className="py-6 px-3 text-center align-middle" key={key}>
+          {renderColor(value as string)}
+        </td>
       ) : (
+        //general
         <td className="py-6 px-3 text-center align-middle" key={value}>
           {value}
         </td>
@@ -25,6 +26,7 @@ function Table({ data }: TableProp) {
     );
   });
 
+  //generalization for keys
   const keys = Object.keys(data[0]);
   const renderedKeys = keys.map((key) => {
     const capitalizedKey =
