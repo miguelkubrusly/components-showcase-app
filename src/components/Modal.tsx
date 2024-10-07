@@ -14,9 +14,9 @@ function Modal({ children, onClose, actionBar }: ModalProp) {
     <div>
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-gray-300 opacity-80"
+        className="fixed inset-0 bg-gray-300 opacity-80"
       ></div>
-      <div className="absolute inset-40 p-10 bg-white border-2 border-solid border-gray-400 border-le">
+      <div className="fixed inset-40 p-10 bg-white border-2 border-solid border-gray-400 border-le">
         <div className="flex flex-col justify-between h-full">
           {children}
           <div className="flex justify-end">{actionBar}</div>
