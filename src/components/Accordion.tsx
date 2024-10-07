@@ -24,15 +24,19 @@ function Accordion({ items }: AccordionItemsProp) {
       );
 
       return (
-        <div key={item.id} className="w-1/5">
+        <div key={item.id} className="w-2/5">
           <div
-            className="flex p-3 bg-gray-50 border-b items-center cursor-pointer justify-between"
+            className="flex p-3 bg-gray-50 border-b items-center cursor-pointer justify-between shadow shadow-gray-300"
             onClick={() => handleClick(index)}
           >
             {item.label}
             {icon}
           </div>
-          {isExpanded && <div className="border-b p-5">{item.content}</div>}
+          {isExpanded && (
+            <div className="border-b p-5 shadow shadow-gray-400">
+              {item.content}
+            </div>
+          )}
         </div>
       );
     }
