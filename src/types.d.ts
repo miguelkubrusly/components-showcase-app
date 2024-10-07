@@ -59,6 +59,10 @@ declare global {
     className?: string;
     activeClassName?: string;
   };
+
+  type ModalProp = {
+    onClose: () => void;
+  };
 }
 
 export {};
