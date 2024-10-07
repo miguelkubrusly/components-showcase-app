@@ -1,28 +1,31 @@
-import AccordionPage from "../pages/AccordionPage";
-import ButtonPage from "../pages/ButtonPage";
-import DropdownPage from "../pages/DropdownPage";
 import Link from "./Link";
-import Router from "./Router";
 
 function SideBar() {
   const links = [
-    { label: "Button", path: "/button", page: ButtonPage },
-    { label: "Accordion", path: "/accordion", page: AccordionPage },
-    { label: "Dropdown", path: "/dropdown", page: DropdownPage },
+    { label: "Button", path: "/button" },
+    { label: "Accordion", path: "/accordion" },
+    { label: "Dropdown", path: "/dropdown" },
+    { label: "Modal", path: "/modal" },
   ];
 
   const renderedLinks = links.map((link) => {
     return (
-      <div key={link.label}>
-        <Link to={link.path}>{link.label}</Link>
-        <Router path={link.path}>
-          <link.page />
-        </Router>
+      <div key={link.label} className="mb-4">
+        <Link
+          to={link.path}
+          activeClassName="font-bold border-l-4 border-blue-500 pl-2"
+        >
+          {link.label}
+        </Link>
       </div>
     );
   });
 
-  return <div>{renderedLinks}</div>;
+  return (
+    <div className="sticky top-0 flex flex-col items-start">
+      {renderedLinks}
+    </div>
+  );
 }
 
 export default SideBar;

@@ -1,10 +1,15 @@
 import classNames from "classnames";
 import useNavigation from "../hooks/use-navigation";
 
-function Link({ children, to }: LinkProps) {
+function Link({ children, to, className, activeClassName }: LinkProps) {
   const navigate = useNavigation()?.navigate;
+  const currentPath = useNavigation()?.currentPath;
 
-  const classes = classNames("text-blue-500");
+  const classes = classNames(
+    "text-blue-500",
+    className,
+    currentPath === to && activeClassName
+  );
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (event.metaKey || event.ctrlKey) {
