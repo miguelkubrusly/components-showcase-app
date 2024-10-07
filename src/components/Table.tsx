@@ -1,9 +1,25 @@
 function Table({ data }: TableProp) {
-  const renderedData = data.map((item: TableItem) => {
-    const renderedItem = Object.values(item).map((value) => {
-      return <td key={value}>{value}</td>;
+  //specific for fruits
+  const renderedColors = data.map((item) => {
+    return `p-3 m-2 ${item.color}`;
+  });
+
+  //generalization
+  const renderedData = data.map((item: TableItem, index) => {
+    const renderedItem = Object.entries(item).map(([key, value]) => {
+      return key === "color" ? (
+        <div className={renderedColors[index]} key={value}></div>
+      ) : (
+        <td className="p-3" key={value}>
+          {value}
+        </td>
+      );
     });
-    return <tr key={item.name}>{renderedItem}</tr>;
+    return (
+      <tr className="border-b" key={item.name}>
+        {renderedItem}
+      </tr>
+    );
   });
 
   const keys = Object.keys(data[0]);
@@ -12,9 +28,9 @@ function Table({ data }: TableProp) {
   });
 
   return (
-    <table>
+    <table className="table-auto border-spacing-2">
       <thead>
-        <tr>{renderedKeys}</tr>
+        <tr className="border-b-2">{renderedKeys}</tr>
       </thead>
       <tbody>{renderedData}</tbody>
     </table>
