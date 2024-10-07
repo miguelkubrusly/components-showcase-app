@@ -61,7 +61,9 @@ declare global {
   };
 
   type ModalProp = {
+    children: React.ReactNode;
     onClose: () => void;
+    actionBar: React.ReactNode;
   };
 }
 

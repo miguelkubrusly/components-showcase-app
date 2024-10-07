@@ -11,12 +11,24 @@ function ModalPage() {
     setIsOpen(true);
   };
 
+  const actionBar = (
+    <Button primary onClick={handleClose}>
+      Accept
+    </Button>
+  );
+
+  const modal = (
+    <Modal onClose={handleClose} actionBar={actionBar}>
+      Do you wish to proceed with the nothingness?
+    </Modal>
+  );
+
   return (
     <div>
       <Button primary onClick={handleClick}>
         Open Modal
       </Button>
-      {isOpen && <Modal onClose={handleClose} />}
+      {isOpen && modal}
     </div>
   );
 }
