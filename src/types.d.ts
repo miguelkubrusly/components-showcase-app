@@ -51,7 +51,7 @@ declare global {
     navigate: (to: string) => void;
     currentPath: string;
   };
-  type RouterProps = { path: string; children: JSX.Element };
+  type RouterProps = { path: string; children: React.JSX };
 
   type LinkProps = {
     children: React.ReactNode;
