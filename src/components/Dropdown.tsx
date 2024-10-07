@@ -51,13 +51,17 @@ function Dropdown({ options, value, onChange, ...rest }: DropdownProps) {
     <div ref={divEl} className="w-48 relative">
       <Panel
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between items-center cursor-pointer font-medium text-sm"
+        className="flex justify-between items-center cursor-pointer font-medium text-sm shadow shadow-gray-300"
         {...rest}
       >
         {value || "Select..."}
         {icon}
       </Panel>
-      {isOpen && <Panel className="absolute top-full">{renderedOptions}</Panel>}
+      {isOpen && (
+        <Panel className="absolute top-full shadow shadow-gray-300">
+          {renderedOptions}
+        </Panel>
+      )}
     </div>
   );
 }
