@@ -60,10 +60,22 @@ declare global {
     activeClassName?: string;
   };
 
+  //Modal
   type ModalProp = {
     children: React.ReactNode;
     onClose: () => void;
     actionBar: React.ReactNode;
+  };
+
+  //Table
+  type TableItem = {
+    name: string;
+    color: string;
+    quantity: number;
+  };
+
+  type TableProp = {
+    data: TableItem[];
   };
 }
 
