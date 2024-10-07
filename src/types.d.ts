@@ -7,27 +7,33 @@ declare global {
       outline: boolean;
       rounded: boolean;
       children: React.ReactNode;
-      className: string
-    }> & Partial<Exclusive<["primary", "secondary", "success", "warning", "danger"], boolean>>
+      className: string;
+    }> &
+    Partial<
+      Exclusive<
+        ["primary", "secondary", "success", "warning", "danger"],
+        boolean
+      >
+    >;
 
   //Accordion
   interface AccordionItem {
     id: number;
     label: string;
-    content: string
+    content: string;
   }
-  type AccordionItemsProp = MapObject<AccordionItem, items[number]>
+  type AccordionItemsProp = MapObject<AccordionItem, items[number]>;
 
   //Dropdown
   interface Option {
     value: string | number;
-    label: string
+    label: string;
   }
-  type OptionsProp = MapObject<Option, options[number]>
+  type OptionsProp = MapObject<Option, options[number]>;
   interface DropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     options: OptionsProp;
     value: string | null;
-    onChange: (newChoice: string) => void
+    onChange: (newChoice: string) => void;
   }
 
   //Panel
@@ -39,17 +45,20 @@ declare global {
   }>;
 
   //Navigation
-  type NavigationProviderProps = { children: React.ReactNode }
+  type NavigationProviderProps = { children: React.ReactNode };
 
   type NavigationContextValues = {
-    navigate: (to: string) => void
-    currentPath: string
-  }
-  type RouterProps = { path: string, children: JSX.Element }
+    navigate: (to: string) => void;
+    currentPath: string;
+  };
+  type RouterProps = { path: string; children: JSX.Element };
 
-  type LinkProps = { children: React.ReactNode, to: string }
-
-
+  type LinkProps = {
+    children: React.ReactNode;
+    to: string;
+    className?: string;
+    activeClassName?: string;
+  };
 }
 
-export { }
+export {};
