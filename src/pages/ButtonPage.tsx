@@ -6,20 +6,21 @@ function ButtonPage() {
     <div>
       <Button primary>
         <GoBell />
-        Click Here
+        Primary
       </Button>
       <Button secondary>
         <GoSortDesc />
-        Super Button
+        Secondary
       </Button>
       <Button success outline rounded>
-        Subscribe
+        Success, Outline and Rounded
       </Button>
       <Button warning rounded>
-        <GoTelescope />I Do Nothing
+        <GoTelescope />
+        Warning Rounded
       </Button>
       <Button danger outline>
-        Me Too
+        Danger Outline
       </Button>
     </div>
   );
