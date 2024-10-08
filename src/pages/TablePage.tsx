@@ -1,3 +1,4 @@
+import SortableTable from "../components/SortableTable";
 import Table from "../components/Table";
 
 function TablePage() {
@@ -27,9 +28,12 @@ function TablePage() {
     },
   ];
 
+  const keyFn = (item: Fruit) => item.name;
+
   return (
     <div>
-      <Table data={tableContent} config={tableConfig} />
+      <Table data={tableContent} config={tableConfig} keyFn={keyFn} />
+      <SortableTable data={tableContent} config={tableConfig} keyFn={keyFn} />
     </div>
   );
 }

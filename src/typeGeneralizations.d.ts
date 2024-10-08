@@ -17,11 +17,13 @@ declare global {
     label: string | number | null;
     render: (item: T) => React.ReactNode;
     sort?: (a: T, b: T) => number;
+    header?: React.JSX;
   };
 
   type TableProp<T> = {
     data: T[];
     config: TableConfig<T>[];
+    keyFn: (item: T) => string | number;
   };
 }
 
