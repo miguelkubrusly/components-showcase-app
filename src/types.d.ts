@@ -69,15 +69,10 @@ declare global {
 
   //Table
 
-  type TableConfig<T> = {
-    label: string | number | null;
-    render: (item: T) => React.ReactNode;
-    sort?: (a: T, b: T) => number;
-  };
-
-  type TableProp<T> = {
-    data: T[];
-    config: TableConfig<T>[];
+  type Fruit = {
+    name: string;
+    color: string;
+    quantity: number;
   };
 }
 
