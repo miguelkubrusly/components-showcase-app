@@ -1,11 +1,5 @@
 import Table from "../components/Table";
 
-type Fruit = {
-  name: string;
-  color: string;
-  quantity: number;
-};
-
 function TablePage() {
   const tableContent: Fruit[] = [
     { name: "Orange", color: "bg-orange-400", quantity: 5 },

@@ -1,47 +1,28 @@
-function Table({ data }: TableProp) {
-  //specific for fruits
-  const renderColor = (color: string) => (
-    <div className={`w-8 h-8 ${color} mx-auto`}></div>
-  );
+function Table({ data, config }: TableProp<Fruit>) {
+  const renderedLabels = config.map((configItem, index) => (
+    <th key={index}>{configItem.label}</th>
+  ));
 
-  //generalization for values
-  const renderedData = data.map((item: TableItem) => {
-    const renderedItem = Object.entries(item).map(([key, value]) => {
-      //specific for fruit
-      return key === "color" ? (
-        <td className="py-6 px-3 text-center align-middle" key={key}>
-          {renderColor(value as string)}
-        </td>
-      ) : (
-        //general
-        <td className="py-6 px-3 text-center align-middle" key={value}>
-          {value}
-        </td>
-      );
-    });
+  const renderData = (item: Fruit) => {
     return (
-      <tr className="border-b border-gray-300" key={item.name}>
-        {renderedItem}
+      <tr className="border-b border-gray-300" key={String(item)}>
+        {config.map((column, index) => {
+          return (
+            <td className="py-3 px-4 text-center align-middle" key={index}>
+              {column.render(item)}
+            </td>
+          );
+        })}
       </tr>
     );
-  });
+  };
 
-  //generalization for keys
-  const keys = Object.keys(data[0]);
-  const renderedKeys = keys.map((key) => {
-    const capitalizedKey =
-      key.slice(0, 1).toLocaleUpperCase() + key.slice(1).toLocaleLowerCase();
-    return (
-      <th key={key} className="px-6 py-3 text-gray-800">
-        {capitalizedKey}
-      </th>
-    );
-  });
+  const renderedData = data.map((item) => renderData(item));
 
   return (
     <table className="table-auto border-spacing-6">
       <thead>
-        <tr className="border-b-2 border-black">{renderedKeys}</tr>
+        <tr className="border-b-2 border-black">{renderedLabels}</tr>
       </thead>
       <tbody>{renderedData}</tbody>
     </table>
