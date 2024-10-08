@@ -68,14 +68,16 @@ declare global {
   };
 
   //Table
-  type TableItem = {
-    name: string;
-    color: string;
-    quantity: number;
+
+  type TableConfig<T> = {
+    label: string | number | null;
+    render: (item: T) => React.ReactNode;
+    sort?: (a: T, b: T) => number;
   };
 
-  type TableProp = {
-    data: TableItem[];
+  type TableProp<T> = {
+    data: T[];
+    config: TableConfig<T>[];
   };
 }
 
