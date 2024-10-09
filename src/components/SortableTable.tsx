@@ -1,56 +1,40 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Table from "./Table";
 
-function SortableTable({ data, config, keyFn }: TableProp<Fruit>) {
-  const [isAscendent, setIsAscendent] = useState<boolean | null>(null);
-  const [currentData, setCurrentData] = useState<Fruit[]>(data);
-  const [column, setColumn] = useState<number | null>(null);
+function SortableTable({
+  data,
+  config,
+  onSort,
+  keyFn,
+}: SortableTableProp<Fruit>) {
+  const [sortOrder, setSortOrder] = useState(0);
 
-  const sorts = (index: number, sortingMethod: boolean | null) => {
-    const configItem = config[index];
-    if (!configItem.sort) {
-      return currentData;
-    } else if (sortingMethod === null) {
-      return data;
+  const sortsColumn = (sortingMethod: (a: Fruit, b: Fruit) => number) => {
+    if (sortOrder === 0) {
+      setSortOrder(1);
+      onSort(data);
+      return;
     }
-    const sortMultiplier = sortingMethod ? 1 : -1;
-    const sortingConfig = configItem.sort;
-    const sortedData = currentData.sort((a, b) => {
-      return sortMultiplier * sortingConfig(a, b);
+    const newData = [...data].sort((a, b) => {
+      return sortOrder * sortingMethod(a, b);
     });
-
-    return sortedData;
-  };
-  const ordersData = () => {
-    const orderedData = sorts(column!, isAscendent);
-    setCurrentData(orderedData);
-    const nextMethod = isAscendent
-      ? false
-      : isAscendent === false
-      ? null
-      : true;
-    setIsAscendent(nextMethod);
+    const nextOrder = sortOrder === 1 ? -1 : 1;
+    setSortOrder(nextOrder);
+    onSort(newData);
   };
 
-  const createsHeader = () => {
-    const item = config[column!];
-    item.header = (
-      <th key={item.label} onClick={handleClick}>
-        {item.label}
-      </th>
-    );
-  };
-
-  const handleClick = (event: React.MouseEvent<HTMLTableCellElement>) => {
-    const columnIndex = event.currentTarget.cellIndex;
-    setColumn(columnIndex);
-    if (columnIndex !== column) {
-      setIsAscendent(null);
+  const sortableColumns = config.map((column) => {
+    if (column.sort) {
+      column.header = (
+        <th key={column.label} onClick={() => sortsColumn(column.sort!)}>
+          {column.label}
+        </th>
+      );
+      return column;
     }
-    createsHeader();
-    ordersData();
-  };
+    return column;
+  });
 
-  return <Table data={currentData} config={config} keyFn={keyFn} />;
+  return <Table data={data} config={sortableColumns} keyFn={keyFn} />;
 }
 export default SortableTable;

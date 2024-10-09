@@ -18,11 +18,19 @@ declare global {
     render: (item: T) => React.ReactNode;
     sort?: (a: T, b: T) => number;
     header?: React.JSX;
+    index?: number;
   };
 
   type TableProp<T> = {
     data: T[];
     config: TableConfig<T>[];
+    keyFn: (item: T) => string | number;
+  };
+
+  type SortableTableProp<T> = {
+    data: T[];
+    config: TableConfig<T>[];
+    onSort: (newData: Fruit[]) => void;
     keyFn: (item: T) => string | number;
   };
 }

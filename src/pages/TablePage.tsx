@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SortableTable from "../components/SortableTable";
 import Table from "../components/Table";
 
@@ -30,10 +31,20 @@ function TablePage() {
 
   const keyFn = (item: Fruit) => item.name;
 
+  const [data, setData] = useState(tableContent);
+  const handleSorting = (newData: Fruit[]) => {
+    setData([...newData]);
+  };
+
   return (
     <div>
-      <Table data={tableContent} config={tableConfig} keyFn={keyFn} />
-      <SortableTable data={tableContent} config={tableConfig} keyFn={keyFn} />
+      {/* <Table data={tableContent} config={tableConfig} keyFn={keyFn} /> */}
+      <SortableTable
+        data={data}
+        config={tableConfig}
+        onSort={handleSorting}
+        keyFn={keyFn}
+      />
     </div>
   );
 }
