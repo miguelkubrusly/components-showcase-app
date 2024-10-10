@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SortableTable from "../components/SortableTable";
-import Table from "../components/Table";
+// import Table from "../components/Table";
 
 function TablePage() {
   const tableContent: Fruit[] = [
@@ -31,16 +31,17 @@ function TablePage() {
 
   const keyFn = (item: Fruit) => item.name;
 
-  const [data, setData] = useState(tableContent);
+  const [currentData, setCurrentData] = useState(tableContent);
   const handleSorting = (newData: Fruit[]) => {
-    setData([...newData]);
+    setCurrentData([...newData]);
   };
 
   return (
     <div>
-      {/* <Table data={tableContent} config={tableConfig} keyFn={keyFn} /> */}
+      {/* <Table currentData={tableContent} config={tableConfig} keyFn={keyFn} /> */}
       <SortableTable
-        data={data}
+        currentData={currentData}
+        originalData={tableContent}
         config={tableConfig}
         onSort={handleSorting}
         keyFn={keyFn}

@@ -28,11 +28,14 @@ declare global {
   };
 
   type SortableTableProp<T> = {
-    data: T[];
+    currentData: T[];
+    originalData: T[];
     config: TableConfig<T>[];
     onSort: (newData: Fruit[]) => void;
     keyFn: (item: T) => string | number;
   };
+
+  type ArrayUnion<T extends readonly number[]> = T[number];
 }
 
 export {};
