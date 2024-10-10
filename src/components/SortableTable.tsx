@@ -11,50 +11,64 @@ function SortableTable({
   onSort,
   keyFn,
 }: SortableTableProp<Fruit>) {
-  const [sortOrder, setSortOrder] = useState<SortOrderInput>(0);
-
+  const [nextSortOrder, setNextSortOrder] = useState<SortOrderInput>(0);
   const [activeColumn, setActiveColumn] = useState(-1);
 
   const sortsColumn = (sortingMethod: (a: Fruit, b: Fruit) => number) => {
-    if (sortOrder === 0) {
-      setSortOrder(1);
+    if (nextSortOrder === 0) {
       onSort([...originalData]);
+      setNextSortOrder(1);
       return;
     }
     const newData = [...currentData].sort((a, b) => {
-      return sortOrder * sortingMethod(a, b);
+      return nextSortOrder * sortingMethod(a, b);
     });
-    const nextOrder = sortOrder === 1 ? -1 : 0;
-    setSortOrder(nextOrder);
-
+    setNextSortOrder(nextSortOrder === 1 ? -1 : 0);
     onSort(newData);
   };
 
   const handleClick = (columnIndex: number) => {
     if (activeColumn !== columnIndex) {
       setActiveColumn(columnIndex);
-      setSortOrder(0);
+      setNextSortOrder(0);
     } else {
-      switch (sortOrder) {
+      switch (nextSortOrder) {
         case 1:
-          setSortOrder(-1);
+          setNextSortOrder(-1);
           break;
         case 0:
-          setSortOrder(1);
+          setNextSortOrder(1);
           break;
         case -1:
-          setSortOrder(0);
+          setNextSortOrder(0);
       }
     }
-
     sortsColumn(config[columnIndex].sort!);
   };
 
   const updatedConfig = config.map((column, index) => {
+    let sortIcon: string = "";
+    if (activeColumn === index) {
+      console.log("sort order: ", nextSortOrder);
+      switch (nextSortOrder) {
+        case 1:
+          sortIcon = "null";
+          break;
+        case 0:
+          sortIcon = "descending";
+          break;
+        case -1:
+          sortIcon = "ascending";
+          break;
+        default:
+          throw Error("sort order has an invalid value");
+      }
+    }
     if (column.sort) {
       column.header = (
         <th key={column.label} onClick={() => handleClick(index)}>
           {column.label}
+          {sortIcon}
         </th>
       );
       return column;
