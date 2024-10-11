@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Table from "./Table";
 
 const validNumbers = [-1, 0, 1] as const;
@@ -11,54 +11,67 @@ function SortableTable({
   onSort,
   keyFn,
 }: SortableTableProp<Fruit>) {
-  const [nextSortOrder, setNextSortOrder] = useState<SortOrderInput>(0);
-  const [activeColumn, setActiveColumn] = useState(-1);
+  const [sortOrder, setSortOrder] = useState<SortOrderInput>(0);
+  const [activeColumn, setActiveColumn] = useState(0);
 
-  const sortsColumn = (sortingMethod: (a: Fruit, b: Fruit) => number) => {
-    if (nextSortOrder === 0) {
+  // useEffect(() => {
+  //   setSortOrder(0);
+  // }, [activeColumn]);
+
+  const sortsColumn = (
+    sortingMethod: (a: Fruit, b: Fruit) => number,
+    columnIndex: number
+  ) => {
+    if (activeColumn !== columnIndex) {
+      setActiveColumn(columnIndex);
+      setSortOrder(0);
+    }
+
+    if (sortOrder === -1) {
       onSort([...originalData]);
-      setNextSortOrder(1);
+      setSortOrder(0);
       return;
     }
     const newData = [...currentData].sort((a, b) => {
-      return nextSortOrder * sortingMethod(a, b);
+      return sortingMethod(a, b);
     });
-    setNextSortOrder(nextSortOrder === 1 ? -1 : 0);
-    onSort(newData);
+
+    if (sortOrder === 0) {
+      onSort(newData);
+      setSortOrder(1);
+    } else if (sortOrder === 1) {
+      onSort(newData.reverse());
+      setSortOrder(-1);
+    }
   };
 
-  const handleClick = (columnIndex: number) => {
-    if (activeColumn !== columnIndex) {
-      setActiveColumn(columnIndex);
-      setNextSortOrder(0);
-    } else {
-      switch (nextSortOrder) {
-        case 1:
-          setNextSortOrder(-1);
-          break;
-        case 0:
-          setNextSortOrder(1);
-          break;
-        case -1:
-          setNextSortOrder(0);
-      }
-    }
-    sortsColumn(config[columnIndex].sort!);
+  const handleClick = (column: number) => {
+    sortsColumn(config[column].sort!, column);
+
+    console.log("columns: ", column, activeColumn);
+    console.log("handleClick sort order: ", sortOrder);
+    console.log(currentData);
   };
 
   const updatedConfig = config.map((column, index) => {
     let sortIcon: string = "";
     if (activeColumn === index) {
-      console.log("sort order: ", nextSortOrder);
-      switch (nextSortOrder) {
+      console.log(
+        "should be the same when consecutive: ",
+        activeColumn,
+        index,
+        "should be zero on change (active column sort order): ",
+        sortOrder
+      );
+      switch (sortOrder) {
         case 1:
-          sortIcon = "null";
+          sortIcon = "ascending";
           break;
         case 0:
-          sortIcon = "descending";
+          sortIcon = "null";
           break;
         case -1:
-          sortIcon = "ascending";
+          sortIcon = "descending";
           break;
         default:
           throw Error("sort order has an invalid value");
