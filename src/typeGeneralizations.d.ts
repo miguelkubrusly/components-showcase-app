@@ -14,11 +14,10 @@ declare global {
   };
 
   type TableConfig<T> = {
-    label: string | number | null;
+    label: string;
     render: (item: T) => React.ReactNode;
-    sort?: (a: T, b: T) => number;
-    header?: React.JSX;
-    index?: number;
+    sortValue?: (item: T) => string | number;
+    header?: () => React.ReactNode;
   };
 
   type TableProp<T> = {
@@ -27,11 +26,9 @@ declare global {
     keyFn: (item: T) => string | number;
   };
 
-  type SortableTableProp<T> = {
-    currentData: T[];
-    originalData: T[];
+  type SortableTableProps<T> = {
+    data: T[];
     config: TableConfig<T>[];
-    onSort: (newData: Fruit[]) => void;
     keyFn: (item: T) => string | number;
   };
 

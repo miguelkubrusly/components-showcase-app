@@ -21,8 +21,8 @@ function Table({ data, config, keyFn }: TableProp<Fruit>) {
   const renderedData = data.map((item) => rendersData(item));
 
   const renderedLabels = config.map((configItem) => {
-    if (configItem.header && configItem.sort) {
-      return <Fragment key={configItem.label}>{configItem.header}</Fragment>;
+    if (configItem.header) {
+      return <Fragment key={configItem.label}>{configItem.header()}</Fragment>;
     }
     return <th key={configItem.label}>{configItem.label}</th>;
   });

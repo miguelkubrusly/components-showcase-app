@@ -1,4 +1,3 @@
-import { useState } from "react";
 import SortableTable from "../components/SortableTable";
 // import Table from "../components/Table";
 
@@ -14,7 +13,7 @@ function TablePage() {
     {
       label: "Name",
       render: (item: Fruit) => item.name,
-      sort: (a: Fruit, b: Fruit) => a.name.localeCompare(b.name),
+      sortValue: (item: Fruit) => item.name,
     },
     {
       label: "Color",
@@ -25,27 +24,16 @@ function TablePage() {
     {
       label: "Quantity",
       render: (item: Fruit) => item.quantity,
-      sort: (a: Fruit, b: Fruit) => a.quantity - b.quantity,
+      sortValue: (item: Fruit) => item.quantity,
     },
   ];
 
   const keyFn = (item: Fruit) => item.name;
 
-  const [currentData, setCurrentData] = useState(tableContent);
-  const handleSorting = (newData: Fruit[]) => {
-    setCurrentData([...newData]);
-  };
-
   return (
     <div>
       {/* <Table currentData={tableContent} config={tableConfig} keyFn={keyFn} /> */}
-      <SortableTable
-        currentData={currentData}
-        originalData={tableContent}
-        config={tableConfig}
-        onSort={handleSorting}
-        keyFn={keyFn}
-      />
+      <SortableTable data={tableContent} config={tableConfig} keyFn={keyFn} />
     </div>
   );
 }

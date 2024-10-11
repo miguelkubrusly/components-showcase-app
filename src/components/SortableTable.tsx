@@ -1,94 +1,94 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Table from "./Table";
+import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 
-const validNumbers = [-1, 0, 1] as const;
-type SortOrderInput = (typeof validNumbers)[number];
+function SortableTable(props: TableProp<Fruit>) {
+  const [sortOrder, setSortOrder] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<string | null>(null);
 
-function SortableTable({
-  currentData,
-  originalData,
-  config,
-  onSort,
-  keyFn,
-}: SortableTableProp<Fruit>) {
-  const [sortOrder, setSortOrder] = useState<SortOrderInput>(0);
-  const [activeColumn, setActiveColumn] = useState(0);
+  const { data, config } = props;
 
-  // useEffect(() => {
-  //   setSortOrder(0);
-  // }, [activeColumn]);
-
-  const sortsColumn = (
-    sortingMethod: (a: Fruit, b: Fruit) => number,
-    columnIndex: number
-  ) => {
-    if (activeColumn !== columnIndex) {
-      setActiveColumn(columnIndex);
-      setSortOrder(0);
-    }
-
-    if (sortOrder === -1) {
-      onSort([...originalData]);
-      setSortOrder(0);
+  const handleClick = (label: string) => {
+    if (label !== sortBy) {
+      setSortOrder("asc");
+      setSortBy(label);
       return;
     }
-    const newData = [...currentData].sort((a, b) => {
-      return sortingMethod(a, b);
-    });
-
-    if (sortOrder === 0) {
-      onSort(newData);
-      setSortOrder(1);
-    } else if (sortOrder === 1) {
-      onSort(newData.reverse());
-      setSortOrder(-1);
+    if (sortOrder === null) {
+      setSortOrder("asc");
+      setSortBy(label);
+    } else if (sortOrder === "asc") {
+      setSortOrder("desc");
+      setSortBy(label);
+    } else if (sortOrder === "desc") {
+      setSortOrder(null);
+      setSortBy(null);
     }
   };
 
-  const handleClick = (column: number) => {
-    sortsColumn(config[column].sort!, column);
-
-    console.log("columns: ", column, activeColumn);
-    console.log("handleClick sort order: ", sortOrder);
-    console.log(currentData);
-  };
-
-  const updatedConfig = config.map((column, index) => {
-    let sortIcon: string = "";
-    if (activeColumn === index) {
-      console.log(
-        "should be the same when consecutive: ",
-        activeColumn,
-        index,
-        "should be zero on change (active column sort order): ",
-        sortOrder
-      );
-      switch (sortOrder) {
-        case 1:
-          sortIcon = "ascending";
-          break;
-        case 0:
-          sortIcon = "null";
-          break;
-        case -1:
-          sortIcon = "descending";
-          break;
-        default:
-          throw Error("sort order has an invalid value");
-      }
-    }
-    if (column.sort) {
-      column.header = (
-        <th key={column.label} onClick={() => handleClick(index)}>
-          {column.label}
-          {sortIcon}
-        </th>
-      );
+  const updatedConfig = config.map((column) => {
+    if (!column.sortValue) {
       return column;
     }
-    return column;
+    return {
+      ...column,
+      header: () => (
+        <th
+          className="cursor-pointer hover:bg-zinc-300"
+          onClick={() => handleClick(column.label)}
+        >
+          <div className="flex items-center">
+            {makeIcon(column.label)}
+            {column.label}
+          </div>
+        </th>
+      ),
+    };
   });
 
-  return <Table data={currentData} config={updatedConfig} keyFn={keyFn} />;
+  let sortedData = data;
+  if (sortBy && sortOrder) {
+    const sortValue = config.find((column) => column.label === sortBy)!
+      .sortValue!;
+    sortedData = [...data].sort((a, b) => {
+      const valueA = sortValue(a);
+      const valueB = sortValue(b);
+      const reverseOrder = sortOrder === "asc" ? 1 : -1;
+      if (typeof valueA === "number" && typeof valueB === "number") {
+        return (valueA - valueB) * reverseOrder;
+      } else if (typeof valueA === "string" && typeof valueB === "string") {
+        return valueA.localeCompare(valueB) * reverseOrder;
+      } else {
+        throw Error(
+          "Array items must be all the same type to be sorted, and should be either a string or a number."
+        );
+      }
+    });
+  }
+  function makeIcon(label: number | string) {
+    if (label !== sortBy || sortOrder === null) {
+      return (
+        <div>
+          <GoTriangleUp />
+          <GoTriangleDown />
+        </div>
+      );
+    } else if (sortOrder === "asc") {
+      return (
+        <div>
+          <GoTriangleUp />
+        </div>
+      );
+    } else if (sortOrder === "desc") {
+      return (
+        <div>
+          <GoTriangleDown />
+        </div>
+      );
+    }
+  }
+
+  return <Table {...props} data={sortedData} config={updatedConfig} />;
 }
+
 export default SortableTable;
