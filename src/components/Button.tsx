@@ -18,6 +18,14 @@ function Button({
       className,
       "flex text-sm text-center px-3 py-1.5 border border-solid font-medium m-2",
       {
+        "border-black bg-gray-200 text-black hover:bg-gray-600":
+          !primary && !secondary && !success && !warning && !danger && !outline,
+
+        "border-black text-black bg-transparent hover:bg-gray-200 hover:text-white":
+          !primary && !secondary && !success && !warning && !danger && outline,
+
+        "rounded-full": rounded,
+
         "border-blue-500 bg-blue-500 text-white hover:bg-blue-600":
           primary && !outline,
         "border-blue-500 text-blue-500 bg-transparent hover:bg-blue-500 hover:text-white":
@@ -25,7 +33,7 @@ function Button({
 
         "border-gray-700 bg-gray-800 text-white hover:bg-gray-900":
           secondary && !outline,
-        "border-gray-700 text-gray-800 bg-transparent hover:bg-gray-700 hover:text-white":
+        "border-gray-700 text-gray-800 bg-transparent hover:bg-gray-800 hover:text-white":
           secondary && outline,
 
         "border-green-500 bg-green-500 text-white hover:bg-green-600":
@@ -42,16 +50,6 @@ function Button({
           danger && !outline,
         "border-red-500 text-red-500 bg-transparent hover:bg-red-500 hover:text-white":
           danger && outline,
-
-        "rounded-full": rounded,
-
-        "border-2 bg-transparent": outline,
-
-        "text-blue-600": outline && primary,
-        "text-gray-900": outline && secondary,
-        "text-green-600": outline && success,
-        "text-yellow-600": outline && warning,
-        "text-red-600": outline && danger,
       }
     )
   );
