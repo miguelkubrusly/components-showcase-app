@@ -7,7 +7,7 @@ function Table({ data, config, keyFn }: TableProp<Fruit>) {
         {config.map((column, index) => {
           return (
             <td
-              className="py-3 px-4 text-center align-middle"
+              className="py-1 px-3 text-center align-middle"
               key={`${keyFn(item)}-${index}`}
             >
               {column.render(item)}
