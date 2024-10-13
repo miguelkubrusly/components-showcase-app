@@ -1,17 +1,5 @@
-import React from "react";
 import { twMerge } from "tailwind-merge";
 import classNames from "classnames";
-
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  primary?: boolean;
-  secondary?: boolean;
-  success?: boolean;
-  warning?: boolean;
-  danger?: boolean;
-  outline?: boolean;
-  rounded?: boolean;
-  children: React.ReactNode;
-}
 
 function Button({
   primary,
