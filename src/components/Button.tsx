@@ -21,7 +21,7 @@ function Button({
         "border-black bg-gray-200 text-black hover:bg-gray-600":
           !primary && !secondary && !success && !warning && !danger && !outline,
 
-        "border-black text-black bg-transparent hover:bg-gray-200 hover:text-white":
+        "border-black text-black bg-transparent hover:bg-gray-200 hover:text-black":
           !primary && !secondary && !success && !warning && !danger && outline,
 
         "rounded-full": rounded,
