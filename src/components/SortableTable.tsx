@@ -8,7 +8,10 @@ import {
 
 function SortableTable(props: TableProp<Fruit>) {
   const { data, config } = props;
-  const { sortBy, sortOrder, sortedData, sorts } = useSort(data, config);
+  const { sortBy, sortOrder, sortedData, setSortColumn } = useSort(
+    data,
+    config
+  );
 
   function makeIcon(label: number | string) {
     if (label !== sortBy || sortOrder === null) {
@@ -41,7 +44,7 @@ function SortableTable(props: TableProp<Fruit>) {
       header: () => (
         <th
           className="cursor-pointer hover:bg-zinc-200"
-          onClick={() => sorts(column.label)}
+          onClick={() => setSortColumn(column.label)}
         >
           <div className="flex items-center">
             {column.label}
