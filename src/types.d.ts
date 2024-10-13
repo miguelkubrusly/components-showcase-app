@@ -74,6 +74,18 @@ declare global {
     color: string;
     quantity: number;
   };
+
+  //Reducer Counter
+
+  type ReducerCounterAction = {
+    type: string;
+    payload?: number;
+  };
+
+  type ReducerCounterState = {
+    count: number;
+    valueToAdd?: number;
+  };
 }
 
 export {};
