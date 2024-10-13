@@ -1,6 +1,7 @@
 import { FaChevronUp, FaChevronDown } from "react-icons/fa6";
 import useCounter from "../hooks/use-counter";
 import Button from "./Button";
+import Panel from "./Panel";
 
 function Counter() {
   const { count, incrementCount, currentIncrement, adjustIncrement } =
@@ -38,13 +39,13 @@ function Counter() {
     );
 
   return (
-    <div className="max-w-sm w-full bg-white shadow-md rounded-lg p-6 flex flex-col items-center space-y-6">
-      <span className={`font-sans text text-3xl`}>{count}</span>
+    <Panel className="max-w-sm p-6 flex flex-col items-center space-y-6">
+      <span className={`font-sans text text-5xl`}>{count}</span>
       {dynamicButton}
-      <div className="flex flex-col items-center space-y-2">
+      <div className="flex flex-col flex-shrink items-center space-y-2">
         <FaChevronUp
           className="cursor-pointer text-green-500 hover:text-green-800"
-          size={18}
+          size={15}
           onClick={() => adjustIncrement(1)}
           aria-label="Increase increment"
           title="Increase increment"
@@ -52,13 +53,13 @@ function Counter() {
         <span className={`font-sans text-xl`}>{currentIncrement}</span>
         <FaChevronDown
           className="cursor-pointer text-red-500 hover:text-red-800"
-          size={18}
+          size={15}
           onClick={() => adjustIncrement(-1)}
           aria-label="Decrease increment"
           title="Decrease increment"
         />
       </div>
-    </div>
+    </Panel>
   );
 }
 
