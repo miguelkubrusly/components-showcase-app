@@ -4,8 +4,12 @@ function useCounter(initialCount: number, initialIncrement: number) {
   const [count, setCount] = useState(initialCount);
   const [currentIncrement, setCurrentIncrement] = useState(initialIncrement);
 
-  const incrementCount = (increment: number) => {
-    setCount(count + increment);
+  const adjustCount = (increment: number, replace = false) => {
+    if (replace) {
+      setCount(increment);
+    } else {
+      setCount(count + increment);
+    }
   };
 
   const adjustIncrement = (adjustment: number, replace = false) => {
@@ -18,7 +22,7 @@ function useCounter(initialCount: number, initialIncrement: number) {
 
   return {
     count,
-    incrementCount,
+    adjustCount,
     currentIncrement,
     adjustIncrement,
   };

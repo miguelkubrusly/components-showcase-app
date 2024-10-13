@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { GoTrash } from "react-icons/go";
 import Panel from "./Panel";
 import Button from "./Button";
 
@@ -6,6 +7,7 @@ const INCREMENT_ONE = "increment-one-to-count";
 const DECREMENT_ONE = "decrement-one-to-count";
 const SET_ADD_VALUE = "captures-input-as-value-to-add";
 const ADD_A_LOT = "add-a-lot-to-count";
+const RESET_COUNT = "reset-counter-to-initial-values";
 
 const reducer: React.Reducer<ReducerCounterState, ReducerCounterAction> = (
   state: ReducerCounterState,
@@ -33,6 +35,12 @@ const reducer: React.Reducer<ReducerCounterState, ReducerCounterAction> = (
         count: state.count + state.valueToAdd!,
         valueToAdd: 0,
       };
+    case RESET_COUNT:
+      return {
+        ...state,
+        count: 10,
+        valueToAdd: 0,
+      };
     default:
       console.log(action.type);
       return state;
@@ -53,6 +61,10 @@ function ReducerCounter() {
     dispatch({ type: DECREMENT_ONE });
   };
 
+  const reset = () => {
+    dispatch({ type: RESET_COUNT });
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10) || 0;
     dispatch({
@@ -69,8 +81,10 @@ function ReducerCounter() {
   const inputValue = Number.isNaN(state.valueToAdd) ? "" : state.valueToAdd;
 
   return (
-    <Panel className="max-w-sm p-4">
-      <div className="text-2xl font-bold mb-4 text-center">{state.count}</div>
+    <Panel className="w-fit p-4">
+      <div className="text-4xl font-medium font-sans mb-4 text-center">
+        {state.count}
+      </div>
       <div className="flex justify-center space-x-4 mb-4">
         <Button success outline onClick={increment}>
           Increment
@@ -90,9 +104,15 @@ function ReducerCounter() {
           value={inputValue}
           onChange={handleChange}
         />
-        <Button outline type="submit">
-          Add it!
-        </Button>
+        <div className="container flex flex-row justify-center text-center">
+          <Button outline type="submit">
+            Add it!
+          </Button>
+          <Button outline onClick={reset}>
+            Reset
+            <GoTrash />
+          </Button>
+        </div>
       </form>
     </Panel>
   );
