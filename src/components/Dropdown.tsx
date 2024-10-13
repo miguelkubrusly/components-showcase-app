@@ -48,7 +48,7 @@ function Dropdown({ options, value, onChange, ...rest }: DropdownProps) {
   );
 
   return (
-    <div ref={divEl} className="w-48 relative">
+    <div ref={divEl} className="w-44 relative">
       <Panel
         onClick={() => setIsOpen(!isOpen)}
         className="flex justify-between items-center cursor-pointer font-medium text-sm shadow shadow-gray-300"
